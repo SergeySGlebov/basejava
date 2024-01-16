@@ -20,43 +20,35 @@ public class ArrayStorage {
 
     public void update(Resume r) {
         int id = getIdOfElement(r.getUuid());
-        if (id >= 0) {
+        if (needToExist(id, r.getUuid())) {
             storage[id] = r;
-        } else {
-            System.out.println("ERROR: resume " + r.getUuid() + " does not exist in storage");
         }
     }
 
     public void save(Resume r) {
         int id = getIdOfElement(r.getUuid());
-        if (id < 0) {
+        if (doNotNeedToExist(id, r.getUuid())) {
             if (size < storage.length) {
                 storage[size++] = r;
             }
-        } else {
-            System.out.println("ERROR: resume " + r.getUuid() + " already exist in storage");
         }
     }
 
     public Resume get(String uuid) {
         int id = getIdOfElement(uuid);
-        if (id >= 0) {
+        if (needToExist(id, uuid)) {
             return storage[id];
-        } else {
-            System.out.println("ERROR: resume " + uuid + " does not exist in storage");
         }
         return null;
     }
 
     public void delete(String uuid) {
         int id = getIdOfElement(uuid);
-        if (id >= 0) {
+        if (needToExist(id, uuid)) {
             size--;
             for (int i = id; i < size; i++) {
                 storage[i] = storage[id + 1];
             }
-        } else {
-            System.out.println("ERROR: resume " + uuid + " does not exist in storage");
         }
     }
 
@@ -78,5 +70,23 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private boolean needToExist(int id, String uuid) {
+        if (id >= 0) {
+            return true;
+        } else {
+            System.out.println("ERROR: resume " + uuid + " does not exist in storage");
+        }
+        return false;
+    }
+
+    private boolean doNotNeedToExist(int id, String uuid) {
+        if (id < 0) {
+            return true;
+        } else {
+            System.out.println("ERROR: resume " + uuid + " already exist in storage");
+        }
+        return false;
     }
 }
