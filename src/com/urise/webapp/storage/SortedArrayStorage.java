@@ -14,14 +14,14 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void deleteFromStorage(int index) {
+    protected void fillDeletedElement(int index) {
         for (int i = index; i < size - 1; i++) {
             storage[i] = storage[i + 1];
         }
     }
 
     @Override
-    protected void saveToStorage(Resume r, int index) {
+    protected void insertElement(Resume r, int index) {
         for (int i = size; i >= index; i--) {
             storage[i] = storage[i - 1];
         }
