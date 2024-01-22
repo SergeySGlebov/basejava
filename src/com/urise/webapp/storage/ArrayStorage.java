@@ -7,11 +7,12 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
 
+    private static final int STORAGE_LIMIT = 10000;
+
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
-
-    private Resume[] storage = new Resume[10000];
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -52,15 +53,6 @@ public class ArrayStorage {
         }
     }
 
-    public int getIdOfElement(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     /**
      * @return array, contains only Resumes in storage (without null)
      */
@@ -70,6 +62,15 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private int getIdOfElement(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private boolean needToExist(int id, String uuid) {
