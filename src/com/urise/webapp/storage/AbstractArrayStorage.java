@@ -20,8 +20,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     @Override
-    protected void deleteImpl(int index, String uuid) {
-        fillDeletedElement(index);
+    protected void doDelete(Object searchKey) {
+        fillDeletedElement((int) searchKey);
         storage[size - 1] = null;
         size--;
     }
@@ -35,23 +35,28 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     @Override
-    protected void updateImpl(int index, Resume r) {
-        storage[index] = r;
+    protected void doUpdate(Resume r, Object searchKey) {
+        storage[(int) searchKey] = r;
     }
 
     @Override
-    protected void saveImpl(int index, Resume r) {
+    protected void doSave(Resume r, Object searchKey) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
-            insertElement(r, index);
+            insertElement(r, (int) searchKey);
             size++;
         }
     }
 
     @Override
-    protected Resume getImpl(int index, String uuid) {
-        return storage[index];
+    protected Resume doGet(Object searchKey) {
+        return storage[(int) searchKey];
+    }
+
+    @Override
+    protected boolean isExist(Object searchKey) {
+        return size > (int) searchKey && (int) searchKey >= 0;
     }
 
     protected abstract void fillDeletedElement(int index);
