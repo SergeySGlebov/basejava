@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     @Override
-    protected void deleteImpl(int index) {
+    protected void deleteImpl(int index, String uuid) {
         fillDeletedElement(index);
         storage[size - 1] = null;
         size--;
@@ -50,7 +50,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
     }
 
     @Override
-    protected Resume getImpl(int index) {
+    protected Resume getImpl(int index, String uuid) {
         return storage[index];
     }
 

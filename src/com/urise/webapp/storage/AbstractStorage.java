@@ -30,7 +30,7 @@ public abstract class AbstractStorage implements Storage {
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         }
-        return getImpl(index);
+        return getImpl(index, uuid);
     }
 
     public void delete(String uuid) {
@@ -38,13 +38,13 @@ public abstract class AbstractStorage implements Storage {
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         } else {
-            deleteImpl(index);
+            deleteImpl(index, uuid);
         }
     }
 
-    protected abstract void deleteImpl(int index);
+    protected abstract void deleteImpl(int index, String uuid);
 
-    protected abstract Resume getImpl(int index);
+    protected abstract Resume getImpl(int index, String uuid);
 
     protected abstract void saveImpl(int index, Resume r);
 
