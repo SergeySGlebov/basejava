@@ -8,8 +8,9 @@ import com.urise.webapp.model.Resume;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage{
+public class ListStorage extends AbstractStorage {
     private List<Resume> storage = new LinkedList<>();
+
     @Override
     public void clear() {
         storage.clear();
