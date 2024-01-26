@@ -56,11 +56,13 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return size > (int) searchKey && (int) searchKey >= 0;
+        return (int) searchKey >= 0;
     }
 
     protected abstract void fillDeletedElement(int index);
 
     protected abstract void insertElement(Resume r, int index);
+
+    protected abstract Integer getSearchKey(String uuid);
 
 }

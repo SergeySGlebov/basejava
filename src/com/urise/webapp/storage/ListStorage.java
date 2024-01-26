@@ -2,11 +2,11 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> storage = new LinkedList<>();
+    private List<Resume> storage = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -39,8 +39,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
-        return storage.indexOf(new Resume(uuid));
+    protected Integer getSearchKey(String uuid) {
+        for (int i = 0; i < storage.size(); i++) {
+            if (storage.get(i).getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -50,6 +55,6 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return (int) searchKey >= 0 && storage.size() > (int) searchKey;
+        return searchKey != null;
     }
 }

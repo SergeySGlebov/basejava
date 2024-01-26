@@ -7,38 +7,39 @@ import com.urise.webapp.model.Resume;
 public abstract class AbstractStorage implements Storage {
 
     public void update(Resume r) {
-        Object searchKey = getSearchKey(r.getUuid());
-        if (!isExist(searchKey)) {
-            throw new NotExistStorageException(r.getUuid());
-        } else {
-            doUpdate(r, searchKey);
-        }
+        Object searchKey = getExistedKey(r.getUuid());
+        doUpdate(r, searchKey);
     }
 
     public void save(Resume r) {
-        Object searchKey = getSearchKey(r.getUuid());
-        if (isExist(searchKey)) {
-            throw new ExistStorageException(r.getUuid());
-        } else {
-            doSave(r, searchKey);
-        }
+        Object searchKey = getNotExistedKey(r.getUuid());
+        doSave(r, searchKey);
     }
 
     public Resume get(String uuid) {
-        Object searchKey = getSearchKey(uuid);
-        if (!isExist(searchKey)) {
-            throw new NotExistStorageException(uuid);
-        }
+        Object searchKey = getExistedKey(uuid);
         return doGet(searchKey);
     }
 
     public void delete(String uuid) {
+        Object searchKey = getExistedKey(uuid);
+        doDelete(searchKey);
+    }
+
+    private Object getExistedKey(String uuid) {
         Object searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
-        } else {
-            doDelete(searchKey);
         }
+        return searchKey;
+    }
+
+    private Object getNotExistedKey(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (isExist(searchKey)) {
+            throw new ExistStorageException(uuid);
+        }
+        return searchKey;
     }
 
     protected abstract void doDelete(Object searchKey);
