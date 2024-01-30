@@ -4,7 +4,18 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
+import java.util.Comparator;
+
 public abstract class AbstractStorage implements Storage {
+
+    protected Comparator<Resume> resumeComparator = ((o1, o2) -> {
+        int compare = o1.getFullName().compareTo(o2.getFullName());
+        if (compare == 0) {
+            return o1.getUuid().compareTo(o2.getUuid());
+        } else {
+            return compare;
+        }
+    });
 
     public void update(Resume r) {
         Object searchKey = getExistedKey(r.getUuid());
