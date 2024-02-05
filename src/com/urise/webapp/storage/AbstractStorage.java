@@ -4,18 +4,10 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
-import java.util.Comparator;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
-
-    protected Comparator<Resume> resumeComparator = ((o1, o2) -> {
-        int compare = o1.getFullName().compareTo(o2.getFullName());
-        if (compare == 0) {
-            return o1.getUuid().compareTo(o2.getUuid());
-        } else {
-            return compare;
-        }
-    });
 
     public void update(Resume r) {
         Object searchKey = getExistedKey(r.getUuid());
@@ -53,6 +45,13 @@ public abstract class AbstractStorage implements Storage {
         return searchKey;
     }
 
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> list = doCopyAll();
+        Collections.sort(list);
+        return list;
+    }
+
     protected abstract void doDelete(Object searchKey);
 
     protected abstract Resume doGet(Object searchKey);
@@ -64,5 +63,7 @@ public abstract class AbstractStorage implements Storage {
     protected abstract void doUpdate(Resume r, Object searchKey);
 
     protected abstract boolean isExist(Object searchKey);
+
+    protected abstract List<Resume> doCopyAll();
 
 }

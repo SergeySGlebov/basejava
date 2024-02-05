@@ -28,10 +28,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage implements St
         size--;
     }
 
-    public List<Resume> getAllSorted() {
-        Resume[] resumes = Arrays.copyOfRange(storage, 0, size);
-        Arrays.sort(resumes, resumeComparator);
-        return Arrays.asList(resumes);
+    protected List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     public int size() {

@@ -39,23 +39,28 @@ public class Resume implements Comparable<Resume> {
         Resume resume = (Resume) o;
 
         if (!uuid.equals(resume.uuid)) return false;
-        return Objects.equals(fullName, resume.fullName);
+        return fullName.equals(resume.fullName);
     }
 
     @Override
     public int hashCode() {
         int result = uuid.hashCode();
-        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        result = 31 * result + fullName.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return uuid;
+        return uuid + '(' + fullName + ')';
     }
 
     @Override
     public int compareTo(Resume o) {
-        return uuid.compareTo(o.uuid);
+        int compare = fullName.compareTo(o.fullName);
+        if (compare == 0) {
+            return uuid.compareTo(o.uuid);
+        } else {
+            return compare;
+        }
     }
 }
