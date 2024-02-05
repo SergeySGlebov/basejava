@@ -12,16 +12,14 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
     private String fullName;
 
-    public Resume() {
-        this(UUID.randomUUID().toString());
-    }
-
-    public Resume(String uuid) {
-        this.uuid = uuid;
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
     public Resume(String uuid, String fullName) {
-        this(uuid);
+        Objects.requireNonNull(uuid, "uuid must be not null");
+        Objects.requireNonNull(fullName, "fullName must be not null");
+        this.uuid = uuid;
         this.fullName = fullName;
     }
 
@@ -31,10 +29,6 @@ public class Resume implements Comparable<Resume> {
 
     public String getFullName() {
         return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     @Override
