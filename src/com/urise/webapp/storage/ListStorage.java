@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
     private List<Resume> storage = new ArrayList<>();
 
     @Override
@@ -16,18 +16,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
+    protected void doSave(Resume r, Integer searchKey) {
         storage.add(r);
     }
 
     @Override
-    public Resume doGet(Object searchKey) {
-        return storage.get((int) searchKey);
+    public Resume doGet(Integer searchKey) {
+        return storage.get(searchKey);
     }
 
     @Override
-    public void doDelete(Object searchKey) {
-        storage.remove((int) searchKey);
+    public void doDelete(Integer searchKey) {
+        storage.remove(searchKey.intValue());
     }
 
     @Override
@@ -51,12 +51,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
-        storage.set((int) searchKey, r);
+    protected void doUpdate(Resume r, Integer searchKey) {
+        storage.set(searchKey, r);
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
+    protected boolean isExist(Integer searchKey) {
         return searchKey != null;
     }
 }
