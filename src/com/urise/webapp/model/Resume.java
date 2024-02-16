@@ -1,5 +1,7 @@
 package com.urise.webapp.model;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -11,6 +13,8 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private final String uuid;
     private String fullName;
+    private final Map<ContactType, Contact> contacts = new HashMap<>();
+    private final Map<SectionType, Section> sections = new HashMap<>();
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -21,6 +25,14 @@ public class Resume implements Comparable<Resume> {
         Objects.requireNonNull(fullName, "fullName must be not null");
         this.uuid = uuid;
         this.fullName = fullName;
+    }
+
+    public void addContact(ContactType contactType, Contact contact) {
+        contacts.put(contactType, contact);
+    }
+
+    public void addSection(SectionType sectionType, Section section) {
+        sections.put(sectionType, section);
     }
 
     public String getUuid() {
@@ -61,6 +73,23 @@ public class Resume implements Comparable<Resume> {
             return uuid.compareTo(o.uuid);
         } else {
             return compare;
+        }
+    }
+
+    public void print() {
+        System.out.println(fullName);
+        for (ContactType contactType : ContactType.values()) {
+            if (contacts.containsKey(contactType)) {
+                contacts.get(contactType).printText();
+            }
+        }
+        System.out.println();
+        for (SectionType sectionType : SectionType.values()) {
+            if (sections.containsKey(sectionType)) {
+                System.out.println(sectionType.getTitle());
+                sections.get(sectionType).printText();
+                System.out.println();
+            }
         }
     }
 }
