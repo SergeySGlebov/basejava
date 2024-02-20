@@ -1,9 +1,8 @@
 package com.urise.webapp.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import javafx.util.Pair;
+
+import java.util.*;
 
 /**
  * Initial resume class
@@ -13,21 +12,21 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private final String uuid;
     private String fullName;
-    private final Map<ContactType, Contact> contacts = new HashMap<>();
-    private final Map<SectionType, Section> sections = new HashMap<>();
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
 
     public Resume(String uuid, String fullName) {
-        Objects.requireNonNull(uuid, "uuid must be not null");
-        Objects.requireNonNull(fullName, "fullName must be not null");
+        Objects.requireNonNull(uuid, "uuid must not be null");
+        Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
     }
 
-    public void addContact(ContactType contactType, Contact contact) {
+    public void addContact(ContactType contactType, String contact) {
         contacts.put(contactType, contact);
     }
 
@@ -39,8 +38,12 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+    public Section getSection(SectionType type) {
+        return sections.get(type);
     }
 
     @Override
@@ -52,6 +55,7 @@ public class Resume implements Comparable<Resume> {
 
         if (!uuid.equals(resume.uuid)) return false;
         return fullName.equals(resume.fullName);
+
     }
 
     @Override
@@ -68,28 +72,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume o) {
-        int compare = fullName.compareTo(o.fullName);
-        if (compare == 0) {
-            return uuid.compareTo(o.uuid);
-        } else {
-            return compare;
-        }
-    }
-
-    public void print() {
-        System.out.println(fullName);
-        for (ContactType contactType : ContactType.values()) {
-            if (contacts.containsKey(contactType)) {
-                contacts.get(contactType).printText();
-            }
-        }
-        System.out.println();
-        for (SectionType sectionType : SectionType.values()) {
-            if (sections.containsKey(sectionType)) {
-                System.out.println(sectionType.getTitle());
-                sections.get(sectionType).printText();
-                System.out.println();
-            }
-        }
+        int cmp = fullName.compareTo(o.fullName);
+        return cmp != 0 ? cmp : uuid.compareTo(o.uuid);
     }
 }

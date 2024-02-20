@@ -1,24 +1,43 @@
 package com.urise.webapp.model;
 
-import java.util.ArrayList;
+import java.util.Objects;
 import java.util.List;
+import java.util.Arrays;
 
 public class ListSection extends Section {
+    private final List<String> items;
 
-    private final List<String> listOfDescriptions = new ArrayList<>();
-
-    public List<String> getListOfDescriptions() {
-        return listOfDescriptions;
+    public ListSection(String... items) {
+        this(Arrays.asList(items));
     }
 
-    public void addDescription(String description) {
-        listOfDescriptions.add(description);
+    public ListSection(List<String> items) {
+        Objects.requireNonNull(items, "items must not be null");
+        this.items = items;
+    }
+
+    public List<String> getItems() {
+        return items;
     }
 
     @Override
-    public void printText() {
-        for (String description : listOfDescriptions) {
-            System.out.println(description);
-        }
+    public String toString() {
+        return items.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ListSection that = (ListSection) o;
+
+        return items.equals(that.items);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return items.hashCode();
     }
 }
