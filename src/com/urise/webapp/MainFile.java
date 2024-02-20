@@ -9,7 +9,7 @@ public class MainFile {
     public static void main(String[] args) {
 
         File dir = new File(".");
-        printDir(dir, 0);
+        printDir(dir, "");
 //        System.out.println(dir.isDirectory());
 //        String[] list = dir.list();
 //        if (list != null) {
@@ -42,18 +42,15 @@ public class MainFile {
 //        }
 //    }
 
-    private static void printDir(File dir, int level) {
+    private static void printDir(File dir, String offset) {
         File[] list = dir.listFiles();
-        for (File file : list) {
-            for (int i = 0; i < level; i++) {
-                System.out.print("  ");
-            }
-            System.out.println(file.getName());
-            if (file.isDirectory()) {
-                printDir(file, level + 1);
+        if (list != null) {
+            for (File file : list) {
+                System.out.println(offset + file.getName());
+                if (file.isDirectory()) {
+                    printDir(file, offset + "  ");
+                }
             }
         }
-
-
     }
 }
