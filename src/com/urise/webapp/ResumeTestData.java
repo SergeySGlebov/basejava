@@ -8,6 +8,7 @@ public class ResumeTestData {
 
     public static Resume fillResume(String uuid, String fullName) {
         Resume r = new Resume(uuid, fullName);
+/*
         r.addContact(ContactType.PHONE, "phone"+uuid);
         r.addContact(ContactType.HOME_PHONE, "homephone"+uuid);
         r.addContact(ContactType.SKYPE, "skype"+uuid);
@@ -32,6 +33,7 @@ public class ResumeTestData {
                 new Organization(uuid+"Edu", null,
                         new Organization.Position(2008, Month.SEPTEMBER, 2009, Month.JULY, "Edu2", null),
                         new Organization.Position(2005, Month.SEPTEMBER, 2008, Month.JULY, "Edu1", null))));
+*/
         return r;
     }
 
