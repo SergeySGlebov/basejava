@@ -8,7 +8,7 @@ public class ResumeTestData {
 
     public static Resume fillResume(String uuid, String fullName) {
         Resume r = new Resume(uuid, fullName);
-/*
+
         r.addContact(ContactType.PHONE, "phone"+uuid);
         r.addContact(ContactType.HOME_PHONE, "homephone"+uuid);
         r.addContact(ContactType.SKYPE, "skype"+uuid);
@@ -18,7 +18,7 @@ public class ResumeTestData {
         r.addContact(ContactType.HOME_PAGE, "homepage"+uuid);
         r.addContact(ContactType.MOBILE, "mobile"+uuid);
         r.addContact(ContactType.STATCKOVERFLOW, "stackoverflow"+uuid);
-
+/*
         r.addSection(SectionType.PERSONAL, new TextSection(fullName+uuid+"Personal"));
         r.addSection(SectionType.OBJECTIVE, new TextSection(fullName+uuid+"Objective"));
         r.addSection(SectionType.QUALIFICATIONS, new ListSection(fullName+uuid+"Qualification1",
