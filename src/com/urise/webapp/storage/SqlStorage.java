@@ -29,9 +29,11 @@ public class SqlStorage implements Storage {
                     try (PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name=? WHERE uuid=?")) {
                         ps.setString(1, r.getFullName());
                         ps.setString(2, r.getUuid());
-                        ps.execute();
+                        if (ps.executeUpdate() == 0) {
+                            throw new NotExistStorageException(r.getUuid());
+                        }
                     }
-                    try(PreparedStatement ps = conn.prepareStatement("DELETE FROM contact WHERE resume_uuid=?")) {
+                    try (PreparedStatement ps = conn.prepareStatement("DELETE FROM contact WHERE resume_uuid=?")) {
                         ps.setString(1, r.getUuid());
                         ps.execute();
                     }
@@ -49,8 +51,8 @@ public class SqlStorage implements Storage {
                         ps.setString(2, r.getFullName());
                         ps.execute();
                     }
-            saveContacts(r, conn);
-            return null;
+                    saveContacts(r, conn);
+                    return null;
                 }
         );
     }
@@ -83,7 +85,7 @@ public class SqlStorage implements Storage {
                     Resume r = new Resume(uuid, rs.getString("full_name"));
                     do {
                         String value = rs.getString("value");
-                        if(value != null) {
+                        if (value != null) {
                             ContactType type = ContactType.valueOf(rs.getString("type"));
                             r.addContact(type, value);
                         }
