@@ -6,6 +6,23 @@ import java.time.Month;
 
 public class ResumeTestData {
 
+    public static final String UUID_1 = "uuid1";
+    public static final String UUID_2 = "uuid2";
+    public static final String UUID_3 = "uuid3";
+    public static final String UUID_4 = "uuid4";
+
+    public static final Resume R1;
+    public static final Resume R2;
+    public static final Resume R3;
+    public static final Resume R4;
+
+    static {
+        R1 = fillResume(UUID_1, "Name1");
+        R2 = fillResume(UUID_2, "Name2");
+        R3 = fillResume(UUID_3, "Name3");
+        R4 = fillResume(UUID_4, "Name4");
+    }
+
     public static Resume fillResume(String uuid, String fullName) {
         Resume r = new Resume(uuid, fullName);
 
@@ -25,7 +42,6 @@ public class ResumeTestData {
                 fullName + uuid + "Qualification2"));
         r.addSection(SectionType.ACHIEVEMENT, new ListSection(fullName + uuid + "Achievement1",
                 fullName + uuid + "Achievement2"));
-/*
         r.addSection(SectionType.EXPERIENCE, new OrganizationSection(
                 new Organization(uuid, "https://"+uuid,
                         new Organization.Position(2015, Month.JANUARY, "Position2", "About position 2"),
@@ -34,7 +50,7 @@ public class ResumeTestData {
                 new Organization(uuid+"Edu", null,
                         new Organization.Position(2008, Month.SEPTEMBER, 2009, Month.JULY, "Edu2", null),
                         new Organization.Position(2005, Month.SEPTEMBER, 2008, Month.JULY, "Edu1", null))));
-*/
+
         return r;
     }
 
