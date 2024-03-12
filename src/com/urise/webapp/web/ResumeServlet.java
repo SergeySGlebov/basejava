@@ -15,10 +15,14 @@ public class ResumeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+        request.setAttribute("resumes", storage.getAllSorted());
+        request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
+
+      /*  request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         writeHtmlTable(response.getWriter());
+     */
 //        response.setHeader("Content-Type", "text/html; charset=UTF-8");
 //        String name = request.getParameter("name");
 //        response.getWriter().write(name == null ? "Hello Resumes!" : "Hello " + name + "!");
@@ -40,7 +44,7 @@ public class ResumeServlet extends HttpServlet {
         pw.write("<th>UUID</th>");
         pw.write("<th>Full Name</th>");
         pw.write("</tr>");
-        for(Resume r : storage.getAllSorted()) {
+        for (Resume r : storage.getAllSorted()) {
             writeResumeToTable(pw, r);
         }
         pw.write("</table>");
@@ -50,8 +54,8 @@ public class ResumeServlet extends HttpServlet {
 
     private void writeResumeToTable(PrintWriter pw, Resume r) {
         pw.write("<tr>");
-        pw.write("<td>"+r.getUuid()+"</td>");
-        pw.write("<td>"+r.getFullName()+"</td>");
+        pw.write("<td>" + r.getUuid() + "</td>");
+        pw.write("<td>" + r.getFullName() + "</td>");
         pw.write("</tr>");
     }
 }
