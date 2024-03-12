@@ -65,6 +65,7 @@ public abstract class AbstractStorageTest {
         newResume.addContact(ContactType.MAIL, "mail1@google.com");
         newResume.addContact(ContactType.SKYPE, "NewSkype");
         newResume.addContact(ContactType.MOBILE, "+7 921 222-22-22");
+        newResume.addSection(SectionType.PERSONAL, new TextSection("New text section"));
         storage.update(newResume);
         assertTrue(newResume.equals(storage.get(UUID_1)));
     }
