@@ -157,6 +157,10 @@ public class ResumeServlet extends HttpServlet {
                     } else {
                         OrganizationSection organizationSection = (OrganizationSection) resume.getSection(sectionType);
                         List<Organization> organizations = organizationSection.getOrganizations();
+                        for(Organization organization : organizations) {
+                            List<Organization.Position> positions = organization.getPositions();
+                            positions.add(new Organization.Position());
+                        }
                         organizations.add(emptyOrganization);
                     }
                     break;
