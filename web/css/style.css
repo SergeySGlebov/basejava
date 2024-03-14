@@ -69,3 +69,38 @@ a[href*="github."] {
     padding-left: 20px !important;
     background: url(../img/gh.png) no-repeat center left;
 }
+.section-wrapper {
+    margin-bottom: 83px;
+}
+
+.job-name {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    margin-left: 207px;
+}
+
+.period-position {
+    display: flex;
+    margin-top: 10px;
+}
+
+.period {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 25px;
+    min-width: 207px;
+}
+
+.position {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.description {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 25px;
+    margin: 35px 0 0 207px;
+}
